@@ -1,0 +1,36 @@
+{
+  "name": "silent_auction",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "feathers": "^2.1.1",
+    "feathers-authentication-client": "^0.3.1",
+    "feathers-hooks": "^1.8.1",
+    "feathers-rest": "^1.7.2",
+    "feathers-socketio": "^1.5.2",
+    "native-base": "^2.1.1",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.3",
+    "react-native-router-flux": "^3.38.0",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-actions": "^2.0.2",
+    "redux-form": "^6.6.3",
+    "redux-saga": "^0.14.6",
+    "socket.io-client": "^1.7.3",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-jest": "19.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "19.0.2",
+    "react-test-renderer": "16.0.0-alpha.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
