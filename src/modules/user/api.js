@@ -39,7 +39,7 @@ export async function login(payload) {
       strategy: 'local',
       ...payload,
     });
-    await saveAccessToken(response.accessToken);
+    //await saveAccessToken(response.accessToken);
     return {
       error: false,
       response,
@@ -51,6 +51,21 @@ export async function login(payload) {
       response: {
         password: 'incorrect login',
       },
+    };
+  }
+}
+
+export async function authenticate() {
+  try {
+    const response = await restApp.authenticate();
+    return {
+      error: false,
+      response,
+    };
+  } catch(err) {
+    return {
+      error: true,
+      response: err,
     };
   }
 }

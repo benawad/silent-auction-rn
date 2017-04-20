@@ -8,6 +8,7 @@ import authentication from 'feathers-authentication-client';
 import rest from 'feathers-rest/client';
 import superagent from 'superagent';
 import { reducer as formReducer } from 'redux-form';
+import { AsyncStorage } from 'react-native';
 
 import * as userSagas from './user/sagas';
 import { user } from './user/reducers';
@@ -31,6 +32,8 @@ const socketioApp = feathers()
 export const restApp = feathers()
   .configure(rest(host).superagent(superagent))
   .configure(hooks())
-  .configure(authentication({}));
+  .configure(authentication({
+    storage: AsyncStorage,
+  }));
 
 export const users = restApp.service('users');

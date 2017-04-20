@@ -6,11 +6,14 @@ import {
   REQUEST_SIGNUP,
   REQUEST_LOGIN,
   receiveLogin,
+  REQUEST_AUTH,
+  receiveAuth,
 } from './actions';
 
 import {
   signup,
   login,
+  authenticate,
 } from './api';
 
 function* callSignup(action) {
@@ -42,4 +45,18 @@ function* callLogin(action) {
 
 export function* loginSaga() {
   yield takeLatest(REQUEST_LOGIN, callLogin);
+}
+
+function* callAuth(action) {
+  const { error, response } = yield call(authenticate);
+  console.log(response);
+  if (error) {
+    Actions.login({});
+  } else {
+    yield put(receiveAuth(response.user));
+  }
+}
+
+export function* authSaga() {
+  yield takeLatest(REQUEST_AUTH, callAuth);
 }
