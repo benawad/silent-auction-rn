@@ -18,9 +18,9 @@ export default function AuthRequired(Component) {
           return (
             <Container>
               {
-                  Object.keys(this.props.user) === 0
+                  Object.keys(this.props.user).length === 0
                   ? <Loading />
-                  : <Component {...this.props} />
+                  : <Component />
               }
             </Container>
           );

@@ -8,12 +8,15 @@ import {
   receiveLogin,
   REQUEST_AUTH,
   receiveAuth,
+  REQUEST_AUCTIONS,
+  receiveAuctions,
 } from './actions';
 
 import {
   signup,
   login,
   authenticate,
+  findAuctions,
 } from './api';
 
 function* callSignup(action) {
@@ -35,7 +38,10 @@ function* callLogin(action) {
   const { error, response } = yield call(login, action.payload);
   console.log(response);
   if (!error) {
-    yield put(receiveLogin(response.user));
+    yield put(receiveLogin({
+      accessToken: response.accessToken,
+      ...response.user,
+    }));
     yield put(stopSubmit('login', {}));
     Actions.viewAuctions({});
   } else {
@@ -53,7 +59,10 @@ function* callAuth(action) {
   if (error) {
     Actions.login({});
   } else {
-    yield put(receiveAuth(response.user));
+    yield put(receiveAuth({
+      accessToken: response.accessToken,
+      ...response.user,
+    }));
   }
 }
 
