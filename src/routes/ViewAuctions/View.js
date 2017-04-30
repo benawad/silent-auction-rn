@@ -1,9 +1,11 @@
 import React from 'react';
+import TimerMixin from 'react-timer-mixin';
+import reactMixin from 'react-mixin';
 import { Content, Card, CardItem, Text, Body, Icon } from 'native-base';
 
 import { socket, socketApp } from '../../modules';
 
-const auction = ({ name, current_price, expiration_date, seller_username, top_bidder }, i) => (
+const auction = ({ name, current_price, timeLeft, seller_username, top_bidder }, i) => (
   <Card key={i}>
     <CardItem header>
       <Text>{name}</Text>
@@ -12,7 +14,7 @@ const auction = ({ name, current_price, expiration_date, seller_username, top_bi
       <Text style={{ fontSize: 50 }}>${ current_price }</Text>
     </CardItem>
     <CardItem>
-      <Text style={{ fontSize: 20 }}>{ expiration_date }</Text>
+      <Text style={{ fontSize: 20 }}>{ timeLeft }</Text>
     </CardItem>
     <CardItem>
       <Text>Seller: { seller_username }</Text>
@@ -30,6 +32,13 @@ export default class ViewAuctions extends React.Component {
     this.props.requestAuctions();
   }
 
+  componentDidMount() {
+    this.setInterval(
+      () => this.props.updateTime(),
+      1000,
+    );
+  }
+
   render() {
     const { auctions = [] } = this.props;
     return (
@@ -42,3 +51,4 @@ export default class ViewAuctions extends React.Component {
   }
 }
 
+reactMixin(ViewAuctions.prototype, TimerMixin);

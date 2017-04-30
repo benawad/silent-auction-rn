@@ -5,6 +5,7 @@ import View from './View';
 import {
   auctionCreated,
   requestAuctions,
+  updateTime,
 } from '../../modules/auction/actions';
 
 function mapStateToProps(state) {
@@ -18,6 +19,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     auctionCreated,
     requestAuctions,
+    updateTime,
   }, dispatch);
 }
 
