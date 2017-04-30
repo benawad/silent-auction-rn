@@ -1,4 +1,4 @@
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import View from './View';
@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     requestLogin,
-  }, dispatch)
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

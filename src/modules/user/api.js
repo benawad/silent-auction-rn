@@ -14,7 +14,7 @@ export async function signup(payload) {
       error: false,
       response: {},
     };
-  } catch({ errors }) {
+  } catch ({ errors }) {
     const errorField = errors[0].path;
     return {
       error: true,
@@ -39,12 +39,12 @@ export async function login(payload) {
       strategy: 'local',
       ...payload,
     });
-    //await saveAccessToken(response.accessToken);
+    // await saveAccessToken(response.accessToken);
     return {
       error: false,
       response,
     };
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     return {
       error: true,
@@ -62,7 +62,7 @@ export async function authenticate() {
       error: false,
       response,
     };
-  } catch(err) {
+  } catch (err) {
     return {
       error: true,
       response: err,

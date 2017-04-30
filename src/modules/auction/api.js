@@ -10,7 +10,7 @@ export async function findAuctions(params) {
       error: false,
       response,
     };
-  } catch(err) {
+  } catch (err) {
     return {
       error: true,
       response: err,

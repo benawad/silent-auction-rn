@@ -1,6 +1,6 @@
 import { handleAction, combineActions } from 'redux-actions';
 import {
-  receiveLogin, 
+  receiveLogin,
   receiveAuth,
 } from './actions';
 

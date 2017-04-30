@@ -1,8 +1,8 @@
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import View from './View';
-import { 
+import {
   auctionCreated,
   requestAuctions,
 } from '../../modules/auction/actions';
@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     auctionCreated,
     requestAuctions,
-  }, dispatch)
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
