@@ -18,4 +18,3 @@ function* callFindAuctions(action) {
 export function* findAuctionsSaga() {
   yield takeLatest(REQUEST_AUCTIONS, callFindAuctions);
 }
-
