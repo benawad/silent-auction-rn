@@ -1,7 +1,7 @@
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
-import { Content, Card, CardItem, Text, Body, Icon } from 'native-base';
+import { Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
 
 import { socket, socketApp } from '../../modules';
 
@@ -49,11 +49,20 @@ export default class ViewAuctions extends React.Component {
   render() {
     const { auctions = [] } = this.props;
     return (
-      <Content>
-        {
-          auctions.map(auction)
-        }
-      </Content>
+      <Container>
+        <Content>
+          {
+            auctions.map(auction)
+          }
+        </Content>
+        <Fab
+          direction="right"
+          containerStyle={{ marginLeft: 10 }}
+          style={{ backgroundColor: '#5067FF' }}
+        >
+          <Icon name="md-add" />
+        </Fab>
+      </Container>
     );
   }
 }
