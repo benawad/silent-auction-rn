@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import View from './View';
 import {
   auctionCreated,
+  auctionUpdated,
+  auctionDeleted,
   requestAuctions,
   updateTime,
 } from '../../modules/auction/actions';
@@ -18,6 +20,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     auctionCreated,
+    auctionUpdated,
+    auctionDeleted,
     requestAuctions,
     updateTime,
   }, dispatch);

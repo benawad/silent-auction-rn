@@ -5,7 +5,7 @@ import { Content, Card, CardItem, Text, Body, Icon } from 'native-base';
 
 import { socket, socketApp } from '../../modules';
 
-const auction = ({ name, current_price, timeLeft, seller_username, top_bidder }, i) => (
+const auction = ({ name, current_price, timeLeft, seller, top_bidder }, i) => (
   <Card key={i}>
     <CardItem header>
       <Text>{name}</Text>
@@ -17,10 +17,10 @@ const auction = ({ name, current_price, timeLeft, seller_username, top_bidder },
       <Text style={{ fontSize: 20 }}>{ timeLeft }</Text>
     </CardItem>
     <CardItem>
-      <Text>Seller: { seller_username }</Text>
+      <Text>Seller: { seller.username }</Text>
     </CardItem>
     <CardItem>
-      <Text>Top Bidder: { top_bidder }</Text>
+      <Text>Top Bidder: { top_bidder.username }</Text>
     </CardItem>
   </Card>
 );
@@ -28,8 +28,15 @@ const auction = ({ name, current_price, timeLeft, seller_username, top_bidder },
 export default class ViewAuctions extends React.Component {
 
   componentWillMount() {
-    socketApp.service('auctions').on('created', a => this.props.auctionCreated(a));
-    this.props.requestAuctions();
+    const auctionsService = socketApp.service('auctions');
+    auctionsService.on('created', a => this.props.auctionCreated(a));
+    auctionsService.on('patched', a => this.props.auctionUpdated(a));
+    auctionsService.on('removed', a => this.props.auctionDeleted(a));
+    this.props.requestAuctions({
+      query: {
+        $limit: 20,
+      },
+    });
   }
 
   componentDidMount() {

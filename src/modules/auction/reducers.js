@@ -3,6 +3,8 @@ import moment from 'moment';
 import {
   RECEIVE_AUCTIONS,
   AUCTION_CREATED,
+  AUCTION_UPDATED,
+  AUCTION_DELETED,
   UPDATE_TIME,
 } from './actions';
 
@@ -32,6 +34,11 @@ export const auctions = handleActions({
   ],
 
   [AUCTION_CREATED]: (state, { payload }) => [addMoment(payload), ...state],
+
+  [AUCTION_UPDATED]: (state, { payload }) =>
+    state.map(a => (a.id === payload.id ? addMoment(payload) : a)),
+
+  [AUCTION_DELETED]: (state, { payload }) => state.filter(a => a.id !== payload.id),
 
   [UPDATE_TIME]: state => state.map(x => ({
     ...x,
