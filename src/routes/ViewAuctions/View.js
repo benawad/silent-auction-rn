@@ -2,6 +2,7 @@ import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
 import { Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
 import { socket, socketApp } from '../../modules';
 
@@ -56,9 +57,9 @@ export default class ViewAuctions extends React.Component {
           }
         </Content>
         <Fab
-          direction="right"
           containerStyle={{ marginLeft: 10 }}
           style={{ backgroundColor: '#5067FF' }}
+          onPress={() => Actions.auctionForm({})}
         >
           <Icon name="md-add" />
         </Fab>
