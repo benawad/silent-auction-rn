@@ -14,11 +14,13 @@ import * as userSagas from './user/sagas';
 import * as auctionSagas from './auction/sagas';
 import { user } from './user/reducers';
 import { auctions } from './auction/reducers';
+import { segment } from './segment/reducers';
 
 export const rootReducer = combineReducers({
   form: formReducer,
   user,
   auctions,
+  segment,
 });
 
 export function* rootSaga() {

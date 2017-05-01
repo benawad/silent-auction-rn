@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 
 export const REQUEST_AUCTIONS = 'REQUEST_AUCTIONS';
+export const REQUEST_CREATE_AUCTION = 'REQUEST_CREATE_AUCTION';
 export const RECEIVE_AUCTIONS = 'RECEIVE_AUCTIONS';
 export const AUCTION_CREATED = 'AUCTION_CREATED';
 export const AUCTION_UPDATED = 'AUCTION_UPDATED';
@@ -13,3 +14,4 @@ export const requestAuctions = createAction(REQUEST_AUCTIONS);
 export const auctionCreated = createAction(AUCTION_CREATED);
 export const auctionUpdated = createAction(AUCTION_UPDATED);
 export const auctionDeleted = createAction(AUCTION_DELETED);
+export const requestCreateAuction = createAction(REQUEST_CREATE_AUCTION);

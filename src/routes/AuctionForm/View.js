@@ -12,6 +12,8 @@ import {
 } from 'native-base';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 
+import DatePicker from '../../components/DatePicker';
+
 const renderField = ({ input: { onChange, ...restInput }, keyboardType, placeholder, secureTextEntry, meta: { touched, error } }) => (
   <InputGroup error={!!(touched && error)}>
     <Input
@@ -26,9 +28,19 @@ const renderField = ({ input: { onChange, ...restInput }, keyboardType, placehol
   </InputGroup>
 );
 
-const onSubmit = ({ name = '', price = '' }, requestCreateAuction) => {
+const dateField = ({ input: { onChange } }) => (
+  <DatePicker onDateChange={date => onChange(date)} />
+);
+
+
+const onSubmit = ({ name = '', price = '', date='' }, requestCreateAuction) => {
   const errors = {};
   let isError = false;
+
+  if (date.trim() === '') {
+    errors.date = 'required';
+    isError = true;
+  }
 
   if (name.trim() === '') {
     errors.name = 'required';
@@ -48,9 +60,11 @@ const onSubmit = ({ name = '', price = '' }, requestCreateAuction) => {
   if (isError) {
     throw new SubmissionError(errors);
   } else {
-    console.log(price);
-    console.log(name);
-    // requestCreateAuction({ price, name });
+    requestCreateAuction({
+      name,
+      current_price: price,
+      expiration_date: date,
+    });
   }
 };
 
@@ -65,12 +79,18 @@ const createAuction = ({ handleSubmit, requestCreateAuction }) => (
             component={renderField}
           />
         </Item>
-        <Item last>
+        <Item>
           <Field
             name="price"
             placeholder="Starting Price"
             component={renderField}
             keyboardType="decimal-pad"
+          />
+        </Item>
+        <Item last>
+          <Field
+            name="date"
+            component={dateField}
           />
         </Item>
         <Button

@@ -17,3 +17,18 @@ export async function findAuctions(params) {
     };
   }
 }
+
+export async function createAuction(params) {
+  try {
+    const response = await auctionsService.create(params);
+    return {
+      error: false,
+      response,
+    };
+  } catch (err) {
+    return {
+      error: true,
+      response: err,
+    };
+  }
+}

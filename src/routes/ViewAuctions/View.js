@@ -1,8 +1,9 @@
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
-import { Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
+import { Button, Segment, Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import _ from 'lodash';
 
 import { socket, socketApp } from '../../modules';
 
@@ -51,9 +52,37 @@ export default class ViewAuctions extends React.Component {
     const { auctions = [] } = this.props;
     return (
       <Container>
+        <Segment>
+          <Button
+            onPress={() => this.props.changeActiveSegment('open')}
+            active={this.props.segment === 'open'}
+            first
+          >
+            <Text>Open</Text>
+          </Button>
+          <Button
+            onPress={() => this.props.changeActiveSegment('both')}
+            active={this.props.segment === 'both'}
+          >
+            <Text>Both</Text>
+          </Button>
+          <Button
+            onPress={() => this.props.changeActiveSegment('complete')}
+            active={this.props.segment === 'complete'}
+            last
+          >
+            <Text>Complete</Text>
+          </Button>
+        </Segment>
         <Content>
           {
-            auctions.map(auction)
+            this.props.segment === 'complete' && _.filter(auctions, ['timeLeft', 'complete']).map(auction)
+          }
+          {
+            this.props.segment === 'open' && _.filter(auctions, a => a.timeLeft !== 'complete').map(auction)
+          }
+          {
+            this.props.segment === 'both' && auctions.map(auction)
           }
         </Content>
         <Fab

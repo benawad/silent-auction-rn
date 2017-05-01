@@ -9,11 +9,15 @@ import {
   requestAuctions,
   updateTime,
 } from '../../modules/auction/actions';
+import {
+  changeActiveSegment,
+} from '../../modules/segment/actions';
 
 function mapStateToProps(state) {
   return {
     user: state.user,
     auctions: state.auctions,
+    segment: state.segment,
   };
 }
 
@@ -24,6 +28,7 @@ function mapDispatchToProps(dispatch) {
     auctionDeleted,
     requestAuctions,
     updateTime,
+    changeActiveSegment,
   }, dispatch);
 }
 
