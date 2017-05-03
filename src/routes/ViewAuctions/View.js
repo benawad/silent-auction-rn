@@ -1,7 +1,23 @@
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
-import { List, ListItem, Left, Right, Item, Picker, Button, Segment, Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
+import {
+  List,
+  ListItem,
+  Left,
+  Right,
+  Item,
+  Picker,
+  Button,
+  Segment,
+  Container,
+  Fab,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Icon,
+} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 
