@@ -8,6 +8,7 @@ import {
   auctionDeleted,
   requestAuctions,
   updateTime,
+  requestBid,
 } from '../../modules/auction/actions';
 import {
   changeActiveSegment,
@@ -34,6 +35,7 @@ function mapDispatchToProps(dispatch) {
     updateTime,
     changeActiveSegment,
     changePick,
+    requestBid,
   }, dispatch);
 }
 

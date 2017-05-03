@@ -5,12 +5,14 @@ import { reset } from 'redux-form';
 import {
   REQUEST_CREATE_AUCTION,
   REQUEST_AUCTIONS,
+  REQUEST_BID,
   receiveAuctions,
 } from './actions';
 
 import {
   findAuctions,
   createAuction,
+  bid,
 } from './api';
 
 function* callFindAuctions(action) {
@@ -34,4 +36,13 @@ function* callCreateAuction(action) {
 
 export function* createAuctionSaga() {
   yield takeLatest(REQUEST_CREATE_AUCTION, callCreateAuction);
+}
+
+function* callBid(action) {
+  const { error, response } = yield call(bid, action.payload);
+  console.log(response);
+}
+
+export function* bidSaga() {
+  yield takeLatest(REQUEST_BID, callBid);
 }

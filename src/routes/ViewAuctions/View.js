@@ -1,28 +1,41 @@
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
-import { Item, Picker, Button, Segment, Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
+import { List, ListItem, Left, Right, Item, Picker, Button, Segment, Container, Fab, Content, Card, CardItem, Text, Body, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 
 import { socket, socketApp } from '../../modules';
 
-const auction = ({ name, current_price, timeLeft, seller, top_bidder }, i) => (
+const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, requestBid) => (
   <Card key={i}>
     <CardItem header>
-      <Text>{name}</Text>
+      <Left>
+        <Text>{name}</Text>
+      </Left>
     </CardItem>
     <CardItem>
-      <Text style={{ fontSize: 50 }}>${ current_price }</Text>
+      <Left>
+        <Text style={{ fontSize: 50 }}>${ current_price }</Text>
+      </Left>
     </CardItem>
     <CardItem>
-      <Text style={{ fontSize: 20 }}>{ timeLeft }</Text>
-    </CardItem>
-    <CardItem>
-      <Text>Seller: { seller.username }</Text>
-    </CardItem>
-    <CardItem>
-      <Text>Top Bidder: { top_bidder.username }</Text>
+      <Left>
+        <List renderRow={t => (<Text>{t}</Text>)}>
+          <ListItem>
+            <Text style={{ fontSize: 20 }}>{ timeLeft }</Text>
+          </ListItem>
+          <ListItem>
+            <Text>Seller: { seller.username }</Text>
+          </ListItem>
+          <ListItem>
+            <Text>Top Bidder: { top_bidder.username }</Text>
+          </ListItem>
+        </List>
+      </Left>
+      <Right>
+        <Icon onPress={() => requestBid(id)} name="logo-bitcoin" style={{ color: 'green', fontSize: 90, marginBottom: 30, marginRight: 60 }} />
+      </Right>
     </CardItem>
   </Card>
 );
@@ -99,7 +112,7 @@ export default class ViewAuctions extends React.Component {
         </Picker>
         <Content>
           {
-            auctions.map(auction)
+            auctions.map((a, i) => auction(a, i, this.props.requestBid))
           }
         </Content>
         <Fab

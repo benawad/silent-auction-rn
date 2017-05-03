@@ -32,3 +32,18 @@ export async function createAuction(params) {
     };
   }
 }
+
+export async function bid(id) {
+  try {
+    const response = await auctionsService.patch(id, { current_price: 5 });
+    return {
+      error: false,
+      response,
+    };
+  } catch (err) {
+    return {
+      error: true,
+      response: err,
+    };
+  }
+}
