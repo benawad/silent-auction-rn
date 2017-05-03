@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Container,
-  Content,
   Form,
   Item,
   Input,
@@ -12,7 +10,7 @@ import {
 } from 'native-base';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 
-import DatePicker from '../../components/DatePicker';
+import DatePicker from './DatePicker';
 
 const renderField = ({ input: { onChange, ...restInput }, keyboardType, placeholder, secureTextEntry, meta: { touched, error } }) => (
   <InputGroup error={!!(touched && error)}>
@@ -69,40 +67,36 @@ const onSubmit = ({ name = '', price = '', date='' }, requestCreateAuction) => {
 };
 
 const createAuction = ({ handleSubmit, requestCreateAuction }) => (
-  <Container>
-    <Content>
-      <Form style={{ marginTop: 20 }}>
-        <Item>
-          <Field
-            name="name"
-            placeholder="Name"
-            component={renderField}
-          />
-        </Item>
-        <Item>
-          <Field
-            name="price"
-            placeholder="Starting Price"
-            component={renderField}
-            keyboardType="decimal-pad"
-          />
-        </Item>
-        <Item last>
-          <Field
-            name="date"
-            component={dateField}
-          />
-        </Item>
-        <Button
-          style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}
-          onPress={handleSubmit(field => onSubmit(field, requestCreateAuction))}
-          block
-        >
-          <Text>Submit</Text>
-        </Button>
-      </Form>
-    </Content>
-  </Container>
+  <Form style={{ marginTop: 20 }}>
+    <Item>
+      <Field
+        name="name"
+        placeholder="Name"
+        component={renderField}
+      />
+    </Item>
+    <Item>
+      <Field
+        name="price"
+        placeholder="Starting Price"
+        component={renderField}
+        keyboardType="decimal-pad"
+      />
+    </Item>
+    <Item last>
+      <Field
+        name="date"
+        component={dateField}
+      />
+    </Item>
+    <Button
+      style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}
+      onPress={handleSubmit(field => onSubmit(field, requestCreateAuction))}
+      block
+    >
+      <Text>Submit</Text>
+    </Button>
+  </Form>
 );
 
 export default reduxForm({

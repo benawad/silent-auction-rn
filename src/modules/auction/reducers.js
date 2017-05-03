@@ -25,6 +25,7 @@ const addMoment = (x) => {
     ...x,
     timeLeft: calcTimeLeft(mTime),
     mTime,
+    current_price: parseFloat(x.current_price),
   };
 };
 

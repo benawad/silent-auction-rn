@@ -1,5 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { Actions } from 'react-native-router-flux';
+import { reset } from 'redux-form';
 
 import {
   REQUEST_CREATE_AUCTION,
@@ -27,6 +28,7 @@ function* callCreateAuction(action) {
   console.log(response);
   if (!error) {
     Actions.viewAuctions({});
+    yield put(reset('createAuction'));
   }
 }
 

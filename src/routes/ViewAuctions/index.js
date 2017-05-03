@@ -12,12 +12,16 @@ import {
 import {
   changeActiveSegment,
 } from '../../modules/segment/actions';
+import {
+  changePick,
+} from '../../modules/picker/actions';
 
 function mapStateToProps(state) {
   return {
     user: state.user,
     auctions: state.auctions,
     segment: state.segment,
+    picker: state.picker,
   };
 }
 
@@ -29,6 +33,7 @@ function mapDispatchToProps(dispatch) {
     requestAuctions,
     updateTime,
     changeActiveSegment,
+    changePick,
   }, dispatch);
 }
 
