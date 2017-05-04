@@ -8,7 +8,7 @@ import authentication from 'feathers-authentication-client';
 import rest from 'feathers-rest/client';
 import superagent from 'superagent';
 import { reducer as formReducer } from 'redux-form';
-import { AsyncStorage } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 
 import * as userSagas from './user/sagas';
 import * as auctionSagas from './auction/sagas';
@@ -32,7 +32,8 @@ export function* rootSaga() {
   ].map(fork);
 }
 
-const host = 'http://localhost:3030';
+const base = Platform.OS === 'ios' ? 'localhost' : '10.0.3.2';
+const host = `http://${base}:3030`;
 export const socket = io(host);
 
 export const socketApp = feathers()

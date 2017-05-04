@@ -1,6 +1,7 @@
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import reactMixin from 'react-mixin';
+import { Platform } from 'react-native';
 import {
   List,
   ListItem,
@@ -94,10 +95,12 @@ export default class ViewAuctions extends React.Component {
       auctions = _.sortBy(auctions, 'current_price');
     }
 
+    const segmentMarginTop = Platform.OS === 'ios' ? 15 : 0;
+
     return (
       <Container>
         <Container>
-          <Segment style={{ marginTop: 15 }} >
+          <Segment style={{ marginTop: segmentMarginTop }} >
             <Button
               onPress={() => this.props.changeActiveSegment('open')}
               active={this.props.segment === 'open'}
