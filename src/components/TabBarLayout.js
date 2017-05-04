@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Container,
   Icon,
   Footer,
   FooterTab,
@@ -10,22 +9,18 @@ import { Actions } from 'react-native-router-flux';
 
 const fontSize = 32;
 
-export default ({ children }) => (
-  <Container>
-    { children.map(scene =>
-        React.cloneElement(React.createElement(scene.component), { key: scene.name })) }
-    <Footer >
-      <FooterTab>
-        <Button onPress={() => Actions.viewAuctions({})} >
-          <Icon name="list" style={{ fontSize }} />
-        </Button>
-        <Button onPress={() => Actions.login({})} active>
-          <Icon active name="log-in" style={{ fontSize }} />
-        </Button>
-        <Button onPress={() => Actions.signup({})}>
-          <Icon name="clipboard" style={{ fontSize }} />
-        </Button>
-      </FooterTab>
-    </Footer>
-  </Container>
+export default ({ currentPage }) => (
+  <Footer >
+    <FooterTab>
+      <Button onPress={() => Actions.viewAuctions({})} active={currentPage === 'viewAuctions'}>
+        <Icon name="list" style={{ fontSize }} active={currentPage === 'viewAuctions'} />
+      </Button>
+      <Button onPress={() => Actions.login({})} active={currentPage === 'login'}>
+        <Icon name="log-in" style={{ fontSize }} active={currentPage === 'login'} />
+      </Button>
+      <Button onPress={() => Actions.signup({})} active={currentPage === 'signup'}>
+        <Icon name="clipboard" style={{ fontSize }} active={currentPage === 'signup'} />
+      </Button>
+    </FooterTab>
+  </Footer>
 );

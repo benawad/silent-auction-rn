@@ -6,11 +6,10 @@ import Signup from './Signup';
 import ViewAuctions from './ViewAuctions';
 import AuctionFormPage from './AuctionFormPage';
 import AuthRequired from '../components/AuthRequired';
-import TabBarLayout from '../components/TabBarLayout';
 
 export default () => (
   <Router>
-    <Scene key="root" component={TabBarLayout}>
+    <Scene key="root">
       <Scene key="login" component={Login} hideNavBar />
       <Scene key="signup" component={Signup} hideNavBar />
       <Scene key="viewAuctions" component={AuthRequired(ViewAuctions)} initial hideNavBar />

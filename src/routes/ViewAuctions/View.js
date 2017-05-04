@@ -21,7 +21,8 @@ import {
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 
-import { socket, socketApp } from '../../modules';
+import { socketApp } from '../../modules';
+import TabBarLayout from '../../components/TabBarLayout';
 
 const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, requestBid) => (
   <Card key={i}>
@@ -83,9 +84,9 @@ export default class ViewAuctions extends React.Component {
     }
 
     if (picker === 'lTimeLeft') {
-      auctions = _.sortBy(auctions, 'timeLeft');
+      auctions = _.sortBy(auctions, 'mTime');
     } else if (picker === 'mTimeLeft') {
-      auctions = _.reverse(_.sortBy(auctions, 'timeLeft'));
+      auctions = _.reverse(_.sortBy(auctions, 'mTime'));
     } else if (picker === 'hBid') {
       auctions = _.reverse(_.sortBy(auctions, 'current_price'));
     } else if (picker === 'lBid') {
@@ -94,50 +95,53 @@ export default class ViewAuctions extends React.Component {
 
     return (
       <Container>
-        <Segment style={{ marginTop: 15 }} >
-          <Button
-            onPress={() => this.props.changeActiveSegment('open')}
-            active={this.props.segment === 'open'}
-            first
+        <Container>
+          <Segment style={{ marginTop: 15 }} >
+            <Button
+              onPress={() => this.props.changeActiveSegment('open')}
+              active={this.props.segment === 'open'}
+              first
+            >
+              <Text>Open</Text>
+            </Button>
+            <Button
+              onPress={() => this.props.changeActiveSegment('both')}
+              active={this.props.segment === 'both'}
+            >
+              <Text>Both</Text>
+            </Button>
+            <Button
+              onPress={() => this.props.changeActiveSegment('complete')}
+              active={this.props.segment === 'complete'}
+              last
+            >
+              <Text>Complete</Text>
+            </Button>
+          </Segment>
+          <Picker
+            mode="dropdown"
+            selectedValue={this.props.picker}
+            onValueChange={v => this.props.changePick(v)}
           >
-            <Text>Open</Text>
-          </Button>
-          <Button
-            onPress={() => this.props.changeActiveSegment('both')}
-            active={this.props.segment === 'both'}
+            <Item label="Least time left" value="lTimeLeft" />
+            <Item label="Most time left" value="mTimeLeft" />
+            <Item label="Highest bid" value="hBid" />
+            <Item label="Lowest bid" value="lBid" />
+          </Picker>
+          <Content>
+            {
+              auctions.map((a, i) => auction(a, i, this.props.requestBid))
+            }
+          </Content>
+          <Fab
+            containerStyle={{ marginLeft: 10 }}
+            style={{ backgroundColor: '#5067FF' }}
+            onPress={() => Actions.auctionFormPage({})}
           >
-            <Text>Both</Text>
-          </Button>
-          <Button
-            onPress={() => this.props.changeActiveSegment('complete')}
-            active={this.props.segment === 'complete'}
-            last
-          >
-            <Text>Complete</Text>
-          </Button>
-        </Segment>
-        <Picker
-          mode="dropdown"
-          selectedValue={this.props.picker}
-          onValueChange={v => this.props.changePick(v)}
-        >
-          <Item label="Least time left" value="lTimeLeft" />
-          <Item label="Most time left" value="mTimeLeft" />
-          <Item label="Highest bid" value="hBid" />
-          <Item label="Lowest bid" value="lBid" />
-        </Picker>
-        <Content>
-          {
-            auctions.map((a, i) => auction(a, i, this.props.requestBid))
-          }
-        </Content>
-        <Fab
-          containerStyle={{ marginLeft: 10 }}
-          style={{ backgroundColor: '#5067FF' }}
-          onPress={() => Actions.auctionFormPage({})}
-        >
-          <Icon name="md-add" />
-        </Fab>
+            <Icon name="md-add" />
+          </Fab>
+        </Container>
+        <TabBarLayout currentPage="viewAuctions" />
       </Container>
     );
   }
