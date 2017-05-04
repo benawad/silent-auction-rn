@@ -18,21 +18,19 @@ import TabBarLayout from '../../components/TabBarLayout';
 export default ({ requestCreateAuction }) => (
   <Container>
     <Container>
-      <Content>
-        <Header>
-          <Left>
-            <Button onPress={() => Actions.viewAuctions({})} transparent>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Add Auction</Title>
-          </Body>
-          <Right>
-          </Right>
-        </Header>
-        <AuctionForm requestCreateAuction={requestCreateAuction} />
-      </Content>
+      <Header>
+        <Left>
+          <Button onPress={() => Actions.viewAuctions({})} transparent>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Add Auction</Title>
+        </Body>
+        <Right>
+        </Right>
+      </Header>
+      <AuctionForm requestCreateAuction={requestCreateAuction} />
     </Container>
     <TabBarLayout />
   </Container>

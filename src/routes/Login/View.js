@@ -50,32 +50,30 @@ const onSubmit = ({ email = '', password = '' }, requestLogin) => {
 const login = ({ handleSubmit, requestLogin }) => (
   <Container>
     <Container>
-      <Content>
-        <Form style={{ marginTop: 20 }}>
-          <Item>
-            <Field
-              name="email"
-              placeholder="Email"
-              component={renderField}
-            />
-          </Item>
-          <Item last>
-            <Field
-              name="password"
-              placeholder="Password"
-              component={renderField}
-              secureTextEntry
-            />
-          </Item>
-          <Button
-            style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}
-            onPress={handleSubmit(field => onSubmit(field, requestLogin))}
-            block
-          >
-            <Text>Login</Text>
-          </Button>
-        </Form>
-      </Content>
+      <Form style={{ marginTop: 20 }}>
+        <Item>
+          <Field
+            name="email"
+            placeholder="Email"
+            component={renderField}
+          />
+        </Item>
+        <Item last>
+          <Field
+            name="password"
+            placeholder="Password"
+            component={renderField}
+            secureTextEntry
+          />
+        </Item>
+        <Button
+          style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}
+          onPress={handleSubmit(field => onSubmit(field, requestLogin))}
+          block
+        >
+          <Text>Login</Text>
+        </Button>
+      </Form>
     </Container>
     <TabBarLayout currentPage="login" />
   </Container>
