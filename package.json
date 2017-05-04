@@ -20,6 +20,7 @@
     "react": "16.0.0-alpha.6",
     "react-mixin": "^3.0.5",
     "react-native": "0.43.3",
+    "react-native-animatable": "^1.1.1",
     "react-native-modal-datetime-picker": "^4.4.0",
     "react-native-router-flux": "^3.38.0",
     "react-redux": "^5.0.4",

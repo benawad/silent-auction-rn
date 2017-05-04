@@ -23,6 +23,7 @@ import _ from 'lodash';
 
 import { socketApp } from '../../modules';
 import TabBarLayout from '../../components/TabBarLayout';
+import AnimatedIcon from '../../components/AnimatedIcon';
 
 const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, requestBid) => (
   <Card key={i}>
@@ -51,7 +52,7 @@ const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, r
         </List>
       </Left>
       <Right>
-        <Icon onPress={() => requestBid(id)} name="logo-bitcoin" style={{ color: 'green', fontSize: 90, marginBottom: 30, marginRight: 60 }} />
+        <AnimatedIcon onPress={() => requestBid(id)} />
       </Right>
     </CardItem>
   </Card>
