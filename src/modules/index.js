@@ -26,10 +26,7 @@ export const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield [
-    ...Object.values(userSagas),
-    ...Object.values(auctionSagas),
-  ].map(fork);
+  yield [...Object.values(userSagas), ...Object.values(auctionSagas)].map(fork);
 }
 
 const base = Platform.OS === 'ios' ? 'localhost' : '10.0.3.2';
@@ -39,16 +36,20 @@ export const socket = io(host);
 export const socketApp = feathers()
   .configure(socketio(socket))
   .configure(hooks())
-  .configure(authentication({
-    storage: AsyncStorage,
-  }));
+  .configure(
+    authentication({
+      storage: AsyncStorage,
+    }),
+  );
 
 export const restApp = feathers()
   .configure(rest(host).superagent(superagent))
   .configure(hooks())
-  .configure(authentication({
-    storage: AsyncStorage,
-  }));
+  .configure(
+    authentication({
+      storage: AsyncStorage,
+    }),
+  );
 
 export const users = restApp.service('users');
 export const auctionsService = restApp.service('auctions');

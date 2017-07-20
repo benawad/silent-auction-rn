@@ -3,17 +3,14 @@ import { Actions } from 'react-native-router-flux';
 import { reset } from 'redux-form';
 
 import {
+  REQUEST_REMOVE_AUCTION,
   REQUEST_CREATE_AUCTION,
   REQUEST_AUCTIONS,
   REQUEST_BID,
   receiveAuctions,
 } from './actions';
 
-import {
-  findAuctions,
-  createAuction,
-  bid,
-} from './api';
+import { removeAuction, findAuctions, createAuction, bid } from './api';
 
 function* callFindAuctions(action) {
   const { error, response } = yield call(findAuctions, action.payload);
@@ -23,6 +20,15 @@ function* callFindAuctions(action) {
 
 export function* findAuctionsSaga() {
   yield takeLatest(REQUEST_AUCTIONS, callFindAuctions);
+}
+
+function* callRemoveAuction(action) {
+  const { error, response } = yield call(removeAuction, action.payload);
+  console.log(response);
+}
+
+export function* removeAuctionSaga() {
+  yield takeLatest(REQUEST_REMOVE_AUCTION, callRemoveAuction);
 }
 
 function* callCreateAuction(action) {

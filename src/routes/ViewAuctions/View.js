@@ -26,29 +26,54 @@ import { socketApp } from '../../modules';
 import TabBarLayout from '../../components/TabBarLayout';
 import AnimatedIcon from '../../components/AnimatedIcon';
 
-const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, requestBid) => (
+const auction = (
+  { id, name, current_price, timeLeft, seller, top_bidder },
+  i,
+  userId,
+  requestBid,
+  removeAuction,
+) =>
   <Card key={i}>
     <CardItem header>
       <Left>
-        <Text>{name}</Text>
+        <Text>
+          {name}
+        </Text>
+      </Left>
+      {userId === seller.id &&
+        <Right>
+          <Icon onPress={() => removeAuction(id)} name="close" style={{ fontSize: 48 }} />
+        </Right>}
+    </CardItem>
+    <CardItem>
+      <Left>
+        <Text style={{ fontSize: 50 }}>
+          ${current_price}
+        </Text>
       </Left>
     </CardItem>
     <CardItem>
       <Left>
-        <Text style={{ fontSize: 50 }}>${ current_price }</Text>
-      </Left>
-    </CardItem>
-    <CardItem>
-      <Left>
-        <List renderRow={t => (<Text>{t}</Text>)}>
+        <List
+          renderRow={t =>
+            <Text>
+              {t}
+            </Text>}
+        >
           <ListItem>
-            <Text style={{ fontSize: 20 }}>{ timeLeft }</Text>
+            <Text style={{ fontSize: 20 }}>
+              {timeLeft}
+            </Text>
           </ListItem>
           <ListItem>
-            <Text>Seller: { seller.username }</Text>
+            <Text>
+              Seller: {seller.username}
+            </Text>
           </ListItem>
           <ListItem>
-            <Text>Top Bidder: { top_bidder.username }</Text>
+            <Text>
+              Top Bidder: {top_bidder.username}
+            </Text>
           </ListItem>
         </List>
       </Left>
@@ -56,11 +81,9 @@ const auction = ({ id, name, current_price, timeLeft, seller, top_bidder }, i, r
         <AnimatedIcon onPress={() => requestBid(id)} />
       </Right>
     </CardItem>
-  </Card>
-);
+  </Card>;
 
 export default class ViewAuctions extends React.Component {
-
   componentWillMount() {
     const auctionsService = socketApp.service('auctions');
     auctionsService.on('created', a => this.props.auctionCreated(a));
@@ -70,10 +93,7 @@ export default class ViewAuctions extends React.Component {
   }
 
   componentDidMount() {
-    this.setInterval(
-      () => this.props.updateTime(),
-      1000,
-    );
+    this.setInterval(() => this.props.updateTime(), 1000);
   }
 
   render() {
@@ -100,7 +120,7 @@ export default class ViewAuctions extends React.Component {
     return (
       <Container>
         <Container>
-          <Segment style={{ marginTop: segmentMarginTop }} >
+          <Segment style={{ marginTop: segmentMarginTop }}>
             <Button
               onPress={() => this.props.changeActiveSegment('open')}
               active={this.props.segment === 'open'}
@@ -133,9 +153,9 @@ export default class ViewAuctions extends React.Component {
             <Item label="Lowest bid" value="lBid" />
           </Picker>
           <Content>
-            {
-              auctions.map((a, i) => auction(a, i, this.props.requestBid))
-            }
+            {auctions.map((a, i) =>
+              auction(a, i, this.props.user.id, this.props.requestBid, this.props.removeAuction),
+            )}
           </Content>
           <Fab
             containerStyle={{ marginLeft: 10 }}

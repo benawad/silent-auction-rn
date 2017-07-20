@@ -9,13 +9,10 @@ import {
   requestAuctions,
   updateTime,
   requestBid,
+  removeAuction,
 } from '../../modules/auction/actions';
-import {
-  changeActiveSegment,
-} from '../../modules/segment/actions';
-import {
-  changePick,
-} from '../../modules/picker/actions';
+import { changeActiveSegment } from '../../modules/segment/actions';
+import { changePick } from '../../modules/picker/actions';
 
 function mapStateToProps(state) {
   return {
@@ -27,16 +24,20 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    auctionCreated,
-    auctionUpdated,
-    auctionDeleted,
-    requestAuctions,
-    updateTime,
-    changeActiveSegment,
-    changePick,
-    requestBid,
-  }, dispatch);
+  return bindActionCreators(
+    {
+      auctionCreated,
+      auctionUpdated,
+      auctionDeleted,
+      removeAuction,
+      requestAuctions,
+      updateTime,
+      changeActiveSegment,
+      changePick,
+      requestBid,
+    },
+    dispatch,
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
