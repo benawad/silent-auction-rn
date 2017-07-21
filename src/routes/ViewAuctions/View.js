@@ -42,6 +42,18 @@ const auction = (
       </Left>
       {userId === seller.id &&
         <Right>
+          <Icon
+            onPress={() =>
+              Actions.auctionFormPage({
+                title: 'Update Auction',
+                create: false,
+                id,
+                auctionName: name,
+                current_price,
+              })}
+            name="create"
+            style={{ fontSize: 48 }}
+          />
           <Icon onPress={() => removeAuction(id)} name="close" style={{ fontSize: 48 }} />
         </Right>}
     </CardItem>
@@ -160,7 +172,7 @@ export default class ViewAuctions extends React.Component {
           <Fab
             containerStyle={{ marginLeft: 10 }}
             style={{ backgroundColor: '#5067FF' }}
-            onPress={() => Actions.auctionFormPage({})}
+            onPress={() => Actions.auctionFormPage({ title: 'Add Auction' })}
           >
             <Icon name="md-add" />
           </Fab>

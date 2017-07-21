@@ -1,18 +1,16 @@
 import React from 'react';
-import {
-  Form,
-  Item,
-  Input,
-  Button,
-  Text,
-  InputGroup,
-  Icon,
-} from 'native-base';
+import { Form, Item, Input, Button, Text, InputGroup, Icon } from 'native-base';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 
 import DatePicker from './DatePicker';
 
-const renderField = ({ input: { onChange, ...restInput }, keyboardType, placeholder, secureTextEntry, meta: { touched, error } }) => (
+const renderField = ({
+  input: { onChange, ...restInput },
+  keyboardType,
+  placeholder,
+  secureTextEntry,
+  meta: { touched, error },
+}) =>
   <InputGroup error={!!(touched && error)}>
     <Input
       placeholder={placeholder}
@@ -22,16 +20,12 @@ const renderField = ({ input: { onChange, ...restInput }, keyboardType, placehol
       {...restInput}
       secureTextEntry={secureTextEntry}
     />
-    { touched && error && <Icon name="ios-close-circle" style={{ color: 'red' }} /> }
-  </InputGroup>
-);
+    {touched && error && <Icon name="ios-close-circle" style={{ color: 'red' }} />}
+  </InputGroup>;
 
-const dateField = ({ input: { onChange } }) => (
-  <DatePicker onDateChange={date => onChange(date)} />
-);
+const dateField = ({ input: { onChange } }) => <DatePicker onDateChange={date => onChange(date)} />;
 
-
-const onSubmit = ({ name = '', price = '', date='' }, requestCreateAuction) => {
+const onSubmit = ({ name = '', price = '', date = '' }, requestCreateAuction) => {
   const errors = {};
   let isError = false;
 
@@ -66,14 +60,10 @@ const onSubmit = ({ name = '', price = '', date='' }, requestCreateAuction) => {
   }
 };
 
-const createAuction = ({ handleSubmit, requestCreateAuction }) => (
+const createAuction = ({ handleSubmit, requestCreateAuction }) =>
   <Form style={{ marginTop: 20 }}>
     <Item>
-      <Field
-        name="name"
-        placeholder="Name"
-        component={renderField}
-      />
+      <Field name="name" placeholder="Name" component={renderField} />
     </Item>
     <Item>
       <Field
@@ -84,10 +74,7 @@ const createAuction = ({ handleSubmit, requestCreateAuction }) => (
       />
     </Item>
     <Item last>
-      <Field
-        name="date"
-        component={dateField}
-      />
+      <Field name="date" component={dateField} />
     </Item>
     <Button
       style={{ marginTop: 50, marginRight: 10, marginLeft: 10 }}
@@ -96,9 +83,9 @@ const createAuction = ({ handleSubmit, requestCreateAuction }) => (
     >
       <Text>Submit</Text>
     </Button>
-  </Form>
-);
+  </Form>;
 
 export default reduxForm({
   form: 'createAuction',
+  enableReinitialize: true,
 })(createAuction);

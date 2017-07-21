@@ -7,10 +7,11 @@ import {
   REQUEST_CREATE_AUCTION,
   REQUEST_AUCTIONS,
   REQUEST_BID,
+  REQUEST_UPDATE_AUCTION,
   receiveAuctions,
 } from './actions';
 
-import { removeAuction, findAuctions, createAuction, bid } from './api';
+import { updateAuction, removeAuction, findAuctions, createAuction, bid } from './api';
 
 function* callFindAuctions(action) {
   const { error, response } = yield call(findAuctions, action.payload);
@@ -29,6 +30,20 @@ function* callRemoveAuction(action) {
 
 export function* removeAuctionSaga() {
   yield takeLatest(REQUEST_REMOVE_AUCTION, callRemoveAuction);
+}
+
+function* callUpdateAuction(action) {
+  const { error, response } = yield call(updateAuction, action.payload);
+  console.log('update response');
+  console.log(response);
+  if (!error) {
+    Actions.viewAuctions({});
+    yield put(reset('createAuction'));
+  }
+}
+
+export function* updateAuctionSaga() {
+  yield takeLatest(REQUEST_UPDATE_AUCTION, callUpdateAuction);
 }
 
 function* callCreateAuction(action) {

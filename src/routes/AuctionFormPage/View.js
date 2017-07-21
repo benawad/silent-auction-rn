@@ -1,21 +1,19 @@
 import React from 'react';
-import {
-  Container,
-  Content,
-  Header,
-  Left,
-  Button,
-  Icon,
-  Body,
-  Title,
-  Right,
-} from 'native-base';
+import { Container, Header, Left, Button, Icon, Title, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 import AuctionForm from '../../components/AuctionForm';
 import TabBarLayout from '../../components/TabBarLayout';
 
-export default ({ requestCreateAuction }) => (
+export default ({
+  requestUpdateAuction,
+  requestCreateAuction,
+  title,
+  create = true,
+  id,
+  auctionName,
+  current_price,
+}) =>
   <Container>
     <Container>
       <Header>
@@ -24,14 +22,19 @@ export default ({ requestCreateAuction }) => (
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>
-          <Title>Add Auction</Title>
-        </Body>
-        <Right>
-        </Right>
+        <Title>
+          {title}
+        </Title>
+        <Right />
       </Header>
-      <AuctionForm requestCreateAuction={requestCreateAuction} />
+      <AuctionForm
+        initialValues={{
+          name: auctionName || '',
+          price: `${current_price || ''}`,
+        }}
+        requestCreateAuction={auction =>
+          create ? requestCreateAuction(auction) : requestUpdateAuction({ auction, id })}
+      />
     </Container>
     <TabBarLayout />
-  </Container>
-);
+  </Container>;

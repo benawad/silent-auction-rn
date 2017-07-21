@@ -8,7 +8,6 @@ import { requestAuth } from '../modules/user/actions';
 
 export default function AuthRequired(Component) {
   class AuthenticatedComponent extends React.Component {
-
     componentWillMount() {
       this.props.requestAuth();
     }
@@ -16,15 +15,11 @@ export default function AuthRequired(Component) {
     render() {
       return (
         <Container>
-          {
-                  Object.keys(this.props.user).length === 0
-                  ? <Loading />
-                  : <Component />
-              }
+          {Object.keys(this.props.user).length === 0 ? <Loading /> : <Component {...this.props} />}
         </Container>
       );
     }
-    }
+  }
 
   const mapStateToProps = state => ({
     user: state.user,

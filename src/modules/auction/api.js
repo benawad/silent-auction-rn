@@ -45,6 +45,43 @@ export async function removeAuction(id) {
   }
 }
 
+/*
+{
+  name: bob,
+  price: 13
+}
+patch : {
+  price: 14
+}
+{
+  name: bob,
+  price: 14
+}
+update : {
+  name: bob3
+  price: 14
+}
+{
+  name: bob3
+  price: 14
+}
+*/
+
+export async function updateAuction({ auction, id }) {
+  try {
+    const response = await auctionsService.patch(id, { update: true, ...auction });
+    return {
+      error: false,
+      response,
+    };
+  } catch (err) {
+    return {
+      error: true,
+      response: err,
+    };
+  }
+}
+
 export async function bid(id) {
   try {
     const response = await auctionsService.patch(id, { current_price: 5 });
